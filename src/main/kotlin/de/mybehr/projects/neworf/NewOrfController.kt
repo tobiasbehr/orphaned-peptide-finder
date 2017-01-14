@@ -1,5 +1,6 @@
 package de.mybehr.projects.neworf
 
+import de.mybehr.projects.model.FileFormat
 import de.mybehr.projects.service.CsvFileReader
 import tornadofx.Controller
 
@@ -16,10 +17,9 @@ class NewOrfController: Controller() {
 
     fun loadPeptidesHeader() {
         runAsync {
-            println("This is async")
-            csvFileReader.read(model.peptidesFile.value)
+            csvFileReader.read(model.peptidesFile.value, FileFormat.MaxQuandt)
         } ui { csvFile ->
-            view.setPeptidesHeader(csvFile.header.asList());
+            view.setPeptidesHeader(csvFile.header);
         }
     }
 }
