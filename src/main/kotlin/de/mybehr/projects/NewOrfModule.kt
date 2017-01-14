@@ -11,5 +11,4 @@ class NewOrfModule : AbstractModule() {
     override fun configure() {
         bind(FileReader::class.java).to(CsvFileReader::class.java)
     }
-
 }

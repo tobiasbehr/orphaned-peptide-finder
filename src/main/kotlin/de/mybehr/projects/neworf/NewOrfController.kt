@@ -1,7 +1,8 @@
 package de.mybehr.projects.neworf
 
+import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.model.FileFormat
-import de.mybehr.projects.service.CsvFileReader
+import de.mybehr.projects.service.FileReader
 import tornadofx.Controller
 
 /**
@@ -13,7 +14,7 @@ class NewOrfController: Controller() {
 
     val view: NewOrfView by inject()
 
-    val csvFileReader: CsvFileReader by di()
+    val csvFileReader: FileReader<CsvFile> by di()
 
     fun loadPeptidesHeader() {
         runAsync {
