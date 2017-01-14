@@ -40,7 +40,7 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                             button {
                                 text = "..."
                                 setOnAction {
-                                    model.peptidesFile.value = chooseFile("test", arrayOf()).singleOrNull()
+                                    model.peptidesFile.value = chooseFile("Input File", arrayOf()).singleOrNull()
                                     controller.loadPeptidesHeader()
                                 }
                             }
@@ -82,7 +82,7 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                             button {
                                 text = "..."
                                 setOnAction {
-                                    model.referenceDbFile.value = chooseFile("test", arrayOf()).singleOrNull()
+                                    model.referenceDbFile.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
                                 }
                             }
                         }
