@@ -15,9 +15,21 @@
         <kotlin.version>1.0.6</kotlin.version>
         <junit.version>4.12</junit.version>
         <tornadofx.version>1.5.9</tornadofx.version>
+        <opencsv.version>2.3</opencsv.version>
+        <guice.version>4.1.0</guice.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
         <dependency>
             <groupId>no.tornado</groupId>
             <artifactId>tornadofx</artifactId>

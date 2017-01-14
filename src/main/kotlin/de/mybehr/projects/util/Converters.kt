@@ -1,4 +1,4 @@
-package de.mybehr.projects
+package de.mybehr.projects.util
 
 import javafx.util.StringConverter
 import java.io.File
