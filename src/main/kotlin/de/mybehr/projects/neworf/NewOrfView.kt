@@ -2,6 +2,7 @@ package de.mybehr.projects.neworf
 
 import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.util.FileToStringConverter
+import javafx.geometry.Pos
 import javafx.scene.control.ComboBox
 import javafx.scene.layout.AnchorPane
 import tornadofx.*
@@ -29,8 +30,12 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     paddingBottom(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
-                        label("New Orf Data")
+                        label("New Orf Data") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
                         hbox {
+                            prefWidth = 170.0
                             textfield (model.peptidesFile, FileToStringConverter())
                             button {
                                 text = "..."
@@ -42,12 +47,22 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                     }
                     hbox {
-                        label("Peptides")
-                        peptidesColumnCombo = combobox<CsvFile.HeaderColumn>(model.peptidesColumn)
+                        label("Peptides") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
+                        peptidesColumnCombo = combobox<CsvFile.HeaderColumn>(model.peptidesColumn) {
+                            prefWidth = 170.0
+                        }
                     }
                     hbox {
-                        label("Accession")
-                        accessionColumnCombo = combobox<CsvFile.HeaderColumn>(model.accessionColumn)
+                        label("Accession") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
+                        accessionColumnCombo = combobox<CsvFile.HeaderColumn>(model.accessionColumn) {
+                            prefWidth = 170.0
+                        }
                     }
                 }
 
@@ -57,8 +72,12 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     paddingBottom(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
-                        label("Reference DB")
+                        label("Reference DB") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
                         hbox {
+                            prefWidth = 170.0
                             textfield(model.referenceDbFile, FileToStringConverter())
                             button {
                                 text = "..."
@@ -69,8 +88,15 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                     }
                     hbox {
-                        label("Filetype")
-                        textfield { }
+                        prefWidth = 170.0
+                        label("Filetype") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
+                        textfield {
+                            alignment = Pos.CENTER_LEFT
+
+                        }
                     }
                 }
 
@@ -80,8 +106,12 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     paddingBottom(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
-                        label ("Target")
+                        label ("Target") {
+                            alignment = Pos.CENTER_LEFT
+                            prefWidth = 100.0
+                        }
                         hbox {
+                            prefWidth = 170.0
                             textfield(model.targetFolder, FileToStringConverter())
                             button {
                                 text = "..."
