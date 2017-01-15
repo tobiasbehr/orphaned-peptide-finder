@@ -83,6 +83,7 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                                 text = "..."
                                 setOnAction {
                                     model.referenceDbFile.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
+                                    controller.loadFastAFile()
                                 }
                             }
                         }
@@ -126,6 +127,10 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         button { text = "Cancel" }
                         button {
                             text = "Start"
+                            setOnAction {
+                                model.commit()
+                                controller.startAnalysis()
+                            }
                         }
                     }
                     hbox {

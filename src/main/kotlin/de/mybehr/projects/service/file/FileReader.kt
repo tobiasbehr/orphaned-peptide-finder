@@ -1,4 +1,4 @@
-package de.mybehr.projects.service
+package de.mybehr.projects.service.file
 
 import de.mybehr.projects.model.FileFormat
 import java.io.File

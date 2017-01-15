@@ -13,4 +13,11 @@ class NewOrfInput(peptidesFile: File? = null, peptidesColumn: CsvFile.HeaderColu
     var accessionColumn by property(accessionColumn)
     var referenceDbFile by property(referenceDbFile)
     var targetFolder by property(targetFolder)
+
+    override fun toString(): String {
+        println("peptidesFile=${peptidesFile}, peptidesColumn=${peptidesColumn}, " +
+                "accessionColumn=${accessionColumn}, referenceDbFile=${referenceDbFile}, " +
+                "targetFolder=${targetFolder}")
+        return ""
+    }
 }

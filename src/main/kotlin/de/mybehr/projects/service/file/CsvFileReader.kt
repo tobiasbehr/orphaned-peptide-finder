@@ -1,4 +1,4 @@
-package de.mybehr.projects.service
+package de.mybehr.projects.service.file
 
 import au.com.bytecode.opencsv.CSVReader
 import de.mybehr.projects.model.CsvFile
@@ -12,7 +12,7 @@ import java.io.FileReader as JFileReader
 class CsvFileReader : FileReader<CsvFile> {
 
     override fun read(file: File, format: FileFormat): CsvFile {
-        val csvReader = CSVReader(JFileReader(file), format.delimiter)
+        val csvReader = CSVReader(java.io.FileReader(file), format.delimiter)
         val csvFile = csvReader.readAll()
         csvReader.close()
 
