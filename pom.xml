@@ -13,11 +13,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.0.6</kotlin.version>
-        <junit.version>4.12</junit.version>
         <tornadofx.version>1.5.9</tornadofx.version>
         <opencsv.version>2.3</opencsv.version>
         <guice.version>4.1.0</guice.version>
         <biojava.version>4.1.0</biojava.version>
+
+        <junit.version>4.12</junit.version>
+        <mockito.version>1.10.19</mockito.version>
+        <assertj.version>1.7.1</assertj.version>
     </properties>
 
     <dependencies>
@@ -61,7 +64,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
