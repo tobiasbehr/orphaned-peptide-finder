@@ -39,6 +39,10 @@ class NewOrfController: Controller() {
 
     fun startAnalysis() {
         println("NewOrfInput: ${model.input}")
-        NewOrfService(model.input).findNewPeptides()
+
+        runAsync {
+            NewOrfService(model.input).findNewPeptides()
+
+        }
     }
 }

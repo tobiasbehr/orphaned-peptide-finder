@@ -3,6 +3,7 @@ package de.mybehr.projects.neworf
 import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.util.FileToStringConverter
 import javafx.geometry.Pos
+import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
 import javafx.scene.layout.AnchorPane
 import tornadofx.*
@@ -19,6 +20,8 @@ class NewOrfView : View("--- TITLE MISSING ---") {
 
     var peptidesColumnCombo: ComboBox<CsvFile.HeaderColumn> by singleAssign()
     var accessionColumnCombo: ComboBox<CsvFile.HeaderColumn> by singleAssign()
+    var startAnalysisButton: Button by singleAssign()
+    var cancelAnalysisButton: Button by singleAssign()
 
     init {
 
@@ -124,12 +127,15 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     }
 
                     hbox {
-                        button { text = "Cancel" }
-                        button {
+                        cancelAnalysisButton = button {
+                            isDisable = true
+                            text = "Cancel"
+                        }
+                        startAnalysisButton = button {
+                            isDisable = false
                             text = "Start"
                             setOnAction {
-                                model.commit()
-                                controller.startAnalysis()
+                                startAnalysis()
                             }
                         }
                     }
@@ -140,6 +146,13 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                 }
             }
         }
+    }
+
+    fun startAnalysis() {
+        startAnalysisButton.setDisable(true)
+        cancelAnalysisButton.setDisable(false)
+        model.commit()
+        controller.startAnalysis()
     }
 
     fun setPeptidesHeader(header: List<CsvFile.HeaderColumn>) {
