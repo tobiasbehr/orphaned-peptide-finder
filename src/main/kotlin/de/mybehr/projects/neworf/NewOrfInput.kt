@@ -1,22 +1,26 @@
 package de.mybehr.projects.neworf
 
 import de.mybehr.projects.model.CsvFile
+import de.mybehr.projects.model.FastAFile
 import tornadofx.property
 import java.io.File
 
 /**
  * @author Tobias Behr
  */
-class NewOrfInput(peptidesFile: File? = null, peptidesColumn: CsvFile.HeaderColumn? = null, accessionColumn: CsvFile.HeaderColumn? = null, referenceDbFile: File? = null, targetFolder: File? = null) {
-    var peptidesFile by property(peptidesFile)
+class NewOrfInput(peptidesFileReference: File? = null, peptidesColumn: CsvFile.HeaderColumn? = null, accessionColumn: CsvFile.HeaderColumn? = null, referenceDbFileReference: File? = null, targetFolder: File? = null, fastAFile: FastAFile? = null) {
+    var peptidesFileReference by property(peptidesFileReference)
     var peptidesColumn by property(peptidesColumn)
     var accessionColumn by property(accessionColumn)
-    var referenceDbFile by property(referenceDbFile)
+    var referenceDbFileReference by property(referenceDbFileReference)
     var targetFolder by property(targetFolder)
 
+    var peptidesFile: CsvFile? = null
+    var fastAFile: FastAFile? = null
+
     override fun toString(): String {
-        println("peptidesFile=${peptidesFile}, peptidesColumn=${peptidesColumn}, " +
-                "accessionColumn=${accessionColumn}, referenceDbFile=${referenceDbFile}, " +
+        println("peptidesFile=${peptidesFileReference}, peptidesColumn=${peptidesColumn}, " +
+                "accessionColumn=${accessionColumn}, referenceDbFile=${referenceDbFileReference}, " +
                 "targetFolder=${targetFolder}")
         return ""
     }

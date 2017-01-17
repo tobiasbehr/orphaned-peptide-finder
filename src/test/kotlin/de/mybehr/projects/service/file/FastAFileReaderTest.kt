@@ -1,6 +1,5 @@
-package de.mybehr.projects.service
+package de.mybehr.projects.service.file
 
-import de.mybehr.projects.service.file.FastAFileReader
 import org.assertj.core.api.Assertions.assertThat
 import org.biojava.nbio.core.sequence.ProteinSequence
 import org.junit.Test

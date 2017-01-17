@@ -4,7 +4,6 @@ import au.com.bytecode.opencsv.CSVReader
 import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.model.FileFormat
 import java.io.File
-import java.io.FileReader as JFileReader
 
 /**
  * @author Tobias Behr

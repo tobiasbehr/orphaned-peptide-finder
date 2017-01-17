@@ -36,11 +36,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         hbox {
                             prefWidth = 170.0
-                            textfield (model.peptidesFile, FileToStringConverter())
+                            textfield (model.peptidesFileReference, FileToStringConverter())
                             button {
                                 text = "..."
                                 setOnAction {
-                                    model.peptidesFile.value = chooseFile("Input File", arrayOf()).singleOrNull()
+                                    model.peptidesFileReference.value = chooseFile("Input File", arrayOf()).singleOrNull()
                                     controller.loadPeptidesHeader()
                                 }
                             }
@@ -78,11 +78,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         hbox {
                             prefWidth = 170.0
-                            textfield(model.referenceDbFile, FileToStringConverter())
+                            textfield(model.referenceDbFileReference, FileToStringConverter())
                             button {
                                 text = "..."
                                 setOnAction {
-                                    model.referenceDbFile.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
+                                    model.referenceDbFileReference.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
                                     controller.loadFastAFile()
                                 }
                             }

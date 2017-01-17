@@ -1,6 +1,5 @@
-package de.mybehr.projects.service
+package de.mybehr.projects.service.file
 
-import de.mybehr.projects.service.file.CsvFileReader
 import org.junit.Test
 
 /**
