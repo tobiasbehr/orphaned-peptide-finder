@@ -44,7 +44,13 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                                 text = "..."
                                 setOnAction {
                                     model.peptidesFileReference.value = chooseFile("Input File", arrayOf()).singleOrNull()
-                                    controller.loadPeptidesHeader()
+
+                                    runAsync {
+                                        controller.loadPeptidesHeader()
+                                    } ui { csvFile ->
+                                        model.input.peptidesFile = csvFile
+                                        setPeptidesHeader(csvFile.header);
+                                    }
                                 }
                             }
                         }
@@ -86,7 +92,13 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                                 text = "..."
                                 setOnAction {
                                     model.referenceDbFileReference.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
-                                    controller.loadFastAFile()
+
+                                    runAsync {
+                                        controller.loadFastAFile()
+                                    } ui { fastAFile ->
+                                        model.input.fastAFile = fastAFile
+                                        println("Read FastAFile: ${fastAFile.entries.size} entries!")
+                                    }
                                 }
                             }
                         }
