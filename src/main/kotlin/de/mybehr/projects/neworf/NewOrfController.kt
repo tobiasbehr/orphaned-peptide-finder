@@ -1,5 +1,6 @@
 package de.mybehr.projects.neworf
 
+import de.mybehr.projects.model.AnalysisFinishedEvent
 import de.mybehr.projects.model.FileFormat
 import de.mybehr.projects.service.analysis.NewOrfService
 import de.mybehr.projects.service.file.CsvFileReader
@@ -26,6 +27,8 @@ class NewOrfController: Controller() {
 
         runAsync {
             NewOrfService(model.input).findNewPeptides()
+        } ui {
+            fire(AnalysisFinishedEvent)
         }
     }
 }

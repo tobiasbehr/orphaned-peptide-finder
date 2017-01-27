@@ -1,10 +1,12 @@
 package de.mybehr.projects.neworf
 
+import de.mybehr.projects.model.AnalysisFinishedEvent
 import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.util.FileToStringConverter
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
+import javafx.scene.control.Label
 import javafx.scene.layout.AnchorPane
 import tornadofx.*
 
@@ -22,8 +24,15 @@ class NewOrfView : View("--- TITLE MISSING ---") {
     var accessionColumnCombo: ComboBox<CsvFile.HeaderColumn> by singleAssign()
     var startAnalysisButton: Button by singleAssign()
     var cancelAnalysisButton: Button by singleAssign()
+    var statusLabel: Label by singleAssign()
 
     init {
+
+        subscribe<AnalysisFinishedEvent> {
+            startAnalysisButton.setDisable(false)
+            cancelAnalysisButton.setDisable(true)
+            statusLabel.text = "Analysis finished, waiting for input ..."
+        }
 
         with(root) {
             vbox {
@@ -148,12 +157,13 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                             text = "Start"
                             setOnAction {
                                 startAnalysis()
+                                statusLabel.text = "Analysis running ..."
                             }
                         }
                     }
                     hbox {
                         label("Status:")
-                        label("Waiting for input")
+                        statusLabel = label("Waiting for input")
                     }
                 }
             }
