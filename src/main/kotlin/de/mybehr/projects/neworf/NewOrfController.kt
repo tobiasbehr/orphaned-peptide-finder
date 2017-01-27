@@ -1,10 +1,11 @@
 package de.mybehr.projects.neworf
 
 import de.mybehr.projects.model.AnalysisFinishedEvent
+import de.mybehr.projects.model.CsvFile
 import de.mybehr.projects.model.FileFormat
 import de.mybehr.projects.service.analysis.NewOrfService
-import de.mybehr.projects.service.file.CsvFileReader
-import de.mybehr.projects.service.file.FastAFileReader
+import de.mybehr.projects.service.file.CsvFileHandler
+import de.mybehr.projects.service.file.FastAFileHandler
 import tornadofx.Controller
 
 /**
@@ -14,19 +15,20 @@ class NewOrfController: Controller() {
 
     val model: NewOrfModel by inject()
 
-    val csvFileReader: CsvFileReader by di()
+    val csvFileHandler: CsvFileHandler by di()
 
-    val fastaReader: FastAFileReader by di()
+    val fastaHandler: FastAFileHandler by di()
 
-    fun loadPeptidesHeader() = csvFileReader.read(model.peptidesFileReference.value, FileFormat.MaxQuandt)
+    fun loadPeptidesHeader() = csvFileHandler.read(model.peptidesFileReference.value, FileFormat.MaxQuandt)
 
-    fun loadFastAFile() = fastaReader.read(model.referenceDbFileReference.value, FileFormat.MaxQuandt)
+    fun loadFastAFile() = fastaHandler.read(model.referenceDbFileReference.value, FileFormat.MaxQuandt)
 
     fun startAnalysis() {
         println("NewOrfInput: ${model.input}")
 
         runAsync {
-            NewOrfService(model.input).findNewPeptides()
+            val newPeptides = NewOrfService(model.input).findNewPeptides()
+            csvFileHandler.write(CsvFile(listOf(CsvFile.HeaderColumn("Peptide", 0), CsvFile.HeaderColumn("Accession", 1)), newPeptides), FileFormat.MaxQuandt, model.targetFolder.value)
         } ui {
             fire(AnalysisFinishedEvent)
         }

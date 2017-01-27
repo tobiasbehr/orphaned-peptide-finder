@@ -10,7 +10,10 @@ import java.util.*
 /**
  * @author Tobias Behr
  */
-class FastAFileReader : FileReader<FastAFile> {
+class FastAFileHandler : FileHandler<FastAFile> {
+    override fun write(content: FastAFile, format: FileFormat, file: File) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun read(file: File, format: FileFormat): FastAFile {
 

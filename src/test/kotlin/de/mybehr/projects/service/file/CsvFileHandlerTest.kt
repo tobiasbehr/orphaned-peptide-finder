@@ -5,9 +5,9 @@ import org.junit.Test
 /**
  * @author Tobias Behr
  */
-class CsvFileReaderTest {
+class CsvFileHandlerTest {
 
-    val reader : CsvFileReader = CsvFileReader()
+    val reader : CsvFileHandler = CsvFileHandler()
 
     @Test
     fun shouldCreateHeader() {

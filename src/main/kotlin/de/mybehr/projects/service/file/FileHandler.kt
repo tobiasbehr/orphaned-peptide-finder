@@ -6,6 +6,8 @@ import java.io.File
 /**
  * @author Tobias Behr
  */
-interface FileReader<T> {
+interface FileHandler<T> {
     fun read(file : File, format : FileFormat) : T
+
+    fun write(content: T, format : FileFormat, file : File)
 }

@@ -7,9 +7,9 @@ import org.junit.Test
 /**
  * @author Tobias Behr
  */
-class FastAFileReaderTest {
+class FastAFileHandlerTest {
 
-    val reader : FastAFileReader = FastAFileReader()
+    val reader : FastAFileHandler = FastAFileHandler()
 
     @Test
     fun shouldExtractFastAEntriesFromResult() {
