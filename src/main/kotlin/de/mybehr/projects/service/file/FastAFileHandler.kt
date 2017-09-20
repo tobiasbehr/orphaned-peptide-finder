@@ -11,7 +11,7 @@ import java.util.*
  * @author Tobias Behr
  */
 class FastAFileHandler : FileHandler<FastAFile> {
-    override fun write(content: FastAFile, format: FileFormat, file: File) {
+    override fun write(content: FastAFile, format: FileFormat, targetFolder: File, filename: String) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

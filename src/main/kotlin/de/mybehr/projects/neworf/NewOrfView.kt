@@ -13,7 +13,7 @@ import tornadofx.*
 /**
  * @author Tobias Behr
  */
-class NewOrfView : View("--- TITLE MISSING ---") {
+class NewOrfView : View("--- Orphaned Peptide Finder ---") {
     override val root = AnchorPane()
 
     val model: NewOrfModel by inject()
@@ -36,10 +36,16 @@ class NewOrfView : View("--- TITLE MISSING ---") {
 
         with(root) {
             vbox {
+                paddingBottom(20.toDouble())
+                paddingLeft(20.toDouble())
+                paddingRight(20.toDouble())
+                paddingTop(20.toDouble())
                 vbox {
                     spacing = 10.toDouble()
                     paddingTop(10.toDouble())
                     paddingBottom(10.toDouble())
+                    paddingLeft(10.toDouble())
+                    paddingRight(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
                         label("New Orf Data") {
@@ -48,7 +54,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         hbox {
                             prefWidth = 170.0
-                            textfield (model.peptidesFileReference, FileToStringConverter())
+                            textfield (model.peptidesFileReference, FileToStringConverter()) {
+                                disableProperty().value = true
+
+                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                            }
                             button {
                                 text = "..."
                                 setOnAction {
@@ -71,6 +81,7 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         peptidesColumnCombo = combobox<CsvFile.HeaderColumn>(model.peptidesColumn) {
                             prefWidth = 170.0
+                            validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
                         }
                     }
                     hbox {
@@ -80,6 +91,7 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         accessionColumnCombo = combobox<CsvFile.HeaderColumn>(model.accessionColumn) {
                             prefWidth = 170.0
+                            validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
                         }
                     }
                 }
@@ -88,6 +100,8 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     spacing = 10.toDouble()
                     paddingTop(10.toDouble())
                     paddingBottom(10.toDouble())
+                    paddingLeft(10.toDouble())
+                    paddingRight(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
                         label("Reference DB") {
@@ -96,7 +110,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         hbox {
                             prefWidth = 170.0
-                            textfield(model.referenceDbFileReference, FileToStringConverter())
+                            textfield(model.referenceDbFileReference, FileToStringConverter()){
+                                disableProperty().value = true
+
+                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                            }
                             button {
                                 text = "..."
                                 setOnAction {
@@ -118,9 +136,9 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                             alignment = Pos.CENTER_LEFT
                             prefWidth = 100.0
                         }
-                        textfield {
+                        textfield("") {
+                            disableProperty().value = true
                             alignment = Pos.CENTER_LEFT
-
                         }
                     }
                 }
@@ -129,6 +147,8 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                     spacing = 10.toDouble()
                     paddingTop(10.toDouble())
                     paddingBottom(10.toDouble())
+                    paddingLeft(10.toDouble())
+                    paddingRight(10.toDouble())
                     style = "-fx-border-color: darkblue; -fx-border-style: solid"
                     hbox {
                         label ("Target") {
@@ -137,7 +157,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                         }
                         hbox {
                             prefWidth = 170.0
-                            textfield(model.targetFolder, FileToStringConverter())
+                            textfield(model.targetFolder, FileToStringConverter()){
+                                disableProperty().value = true
+
+                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                            }
                             button {
                                 text = "..."
                                 setOnAction {
@@ -156,8 +180,11 @@ class NewOrfView : View("--- TITLE MISSING ---") {
                             isDisable = false
                             text = "Start"
                             setOnAction {
-                                startAnalysis()
-                                statusLabel.text = "Analysis running ..."
+                                model.commit()
+                                if (model.isValid) {
+                                    startAnalysis()
+                                    statusLabel.text = "Analysis running ..."
+                                }
                             }
                         }
                     }
@@ -173,7 +200,6 @@ class NewOrfView : View("--- TITLE MISSING ---") {
     fun startAnalysis() {
         startAnalysisButton.setDisable(true)
         cancelAnalysisButton.setDisable(false)
-        model.commit()
         controller.startAnalysis()
     }
 

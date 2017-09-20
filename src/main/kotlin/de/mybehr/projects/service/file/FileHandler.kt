@@ -9,5 +9,5 @@ import java.io.File
 interface FileHandler<T> {
     fun read(file : File, format : FileFormat) : T
 
-    fun write(content: T, format : FileFormat, file : File)
+    fun write(content: T, format : FileFormat, targetFolder: File, filename: String)
 }

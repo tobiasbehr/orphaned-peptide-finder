@@ -1,7 +1,6 @@
 package de.mybehr.projects.neworf
 
 import de.mybehr.projects.model.CsvFile
-import de.mybehr.projects.model.FastAFile
 import javafx.beans.property.Property
 import tornadofx.ViewModel
 import tornadofx.observable

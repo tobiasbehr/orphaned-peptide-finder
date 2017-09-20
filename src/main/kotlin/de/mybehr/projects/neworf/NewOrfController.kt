@@ -7,11 +7,13 @@ import de.mybehr.projects.service.analysis.NewOrfService
 import de.mybehr.projects.service.file.CsvFileHandler
 import de.mybehr.projects.service.file.FastAFileHandler
 import tornadofx.Controller
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * @author Tobias Behr
  */
-class NewOrfController: Controller() {
+class NewOrfController : Controller() {
 
     val model: NewOrfModel by inject()
 
@@ -24,13 +26,23 @@ class NewOrfController: Controller() {
     fun loadFastAFile() = fastaHandler.read(model.referenceDbFileReference.value, FileFormat.MaxQuandt)
 
     fun startAnalysis() {
-        println("NewOrfInput: ${model.input}")
-
         runAsync {
             val newPeptides = NewOrfService(model.input).findNewPeptides()
-            csvFileHandler.write(CsvFile(listOf(CsvFile.HeaderColumn("Peptide", 0), CsvFile.HeaderColumn("Accession", 1)), newPeptides), FileFormat.MaxQuandt, model.targetFolder.value)
+            csvFileHandler.write(
+                    CsvFile(listOf(CsvFile.HeaderColumn("Peptide", 0), CsvFile.HeaderColumn("Accession", 1)), newPeptides),
+                    FileFormat.MaxQuandt,
+                    model.targetFolder.value,
+                    getTargetFileName()
+            )
         } ui {
             fire(AnalysisFinishedEvent)
         }
+    }
+
+    private fun getTargetFileName(): String {
+        val formatter = DateTimeFormatter.ofPattern("YYYYMMdd_HHmm")
+        val filename = model.peptidesFileReference.value.name
+
+        return String.format("%s_%s.csv", filename.substring(0, filename.indexOf(".")), LocalDateTime.now().format(formatter))
     }
 }
