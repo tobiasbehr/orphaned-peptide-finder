@@ -35,167 +35,185 @@ class NewOrfView : View("--- Orphaned Peptide Finder ---") {
         }
 
         with(root) {
-            vbox {
-                paddingBottom(20.toDouble())
-                paddingLeft(20.toDouble())
-                paddingRight(20.toDouble())
-                paddingTop(20.toDouble())
-                vbox {
-                    spacing = 10.toDouble()
-                    paddingTop(10.toDouble())
-                    paddingBottom(10.toDouble())
-                    paddingLeft(10.toDouble())
-                    paddingRight(10.toDouble())
-                    style = "-fx-border-color: darkblue; -fx-border-style: solid"
-                    hbox {
-                        label("New Orf Data") {
-                            alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
-                        }
-                        hbox {
-                            prefWidth = 170.0
-                            textfield (model.peptidesFileReference, FileToStringConverter()) {
-                                disableProperty().value = true
+            borderpane {
+                center =
+                        vbox {
+                            spacing = 5.0
+                            paddingBottom(20.toDouble())
+                            paddingLeft(20.toDouble())
+                            paddingRight(20.toDouble())
+                            paddingTop(20.toDouble())
+                            vbox {
+                                spacing = 10.toDouble()
+                                paddingTop(10.toDouble())
+                                paddingBottom(10.toDouble())
+                                paddingLeft(10.toDouble())
+                                paddingRight(10.toDouble())
+                                style = "-fx-border-color: darkblue; -fx-border-style: solid"
+                                hbox {
+                                    label("New Orf Data") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    hbox {
+                                        prefWidth = 170.0
+                                        textfield(model.peptidesFileReference, FileToStringConverter()) {
+                                            disableProperty().value = true
 
-                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                                            validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                                        }
+                                        button {
+                                            text = "..."
+                                            setOnAction {
+                                                model.peptidesFileReference.value = chooseFile("Input File", arrayOf()).singleOrNull()
+
+                                                runAsync {
+                                                    controller.loadPeptidesHeader()
+                                                } ui { csvFile ->
+                                                    model.input.peptidesFile = csvFile
+                                                    setPeptidesHeader(csvFile.header);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                hbox {
+                                    label("Peptides") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    peptidesColumnCombo = combobox<CsvFile.HeaderColumn>(model.peptidesColumn) {
+                                        prefWidth = 170.0
+                                        validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
+                                    }
+                                }
+                                hbox {
+                                    label("Accession") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    accessionColumnCombo = combobox<CsvFile.HeaderColumn>(model.accessionColumn) {
+                                        prefWidth = 170.0
+                                        validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
+                                    }
+                                }
                             }
-                            button {
-                                text = "..."
-                                setOnAction {
-                                    model.peptidesFileReference.value = chooseFile("Input File", arrayOf()).singleOrNull()
 
-                                    runAsync {
-                                        controller.loadPeptidesHeader()
-                                    } ui { csvFile ->
-                                        model.input.peptidesFile = csvFile
-                                        setPeptidesHeader(csvFile.header);
+                            vbox {
+                                spacing = 10.toDouble()
+                                paddingTop(10.toDouble())
+                                paddingBottom(10.toDouble())
+                                paddingLeft(10.toDouble())
+                                paddingRight(10.toDouble())
+                                style = "-fx-border-color: darkblue; -fx-border-style: solid"
+                                hbox {
+                                    label("Reference DB") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    hbox {
+                                        prefWidth = 170.0
+                                        textfield(model.referenceDbFileReference, FileToStringConverter()) {
+                                            disableProperty().value = true
+
+                                            validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                                        }
+                                        button {
+                                            text = "..."
+                                            setOnAction {
+                                                model.referenceDbFileReference.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
+
+                                                runAsync {
+                                                    controller.loadFastAFile()
+                                                } ui { fastAFile ->
+                                                    model.input.fastAFile = fastAFile
+                                                    println("Read FastAFile: ${fastAFile.entries.size} entries!")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                hbox {
+                                    prefWidth = 170.0
+                                    label("Filetype") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    textfield("") {
+                                        disableProperty().value = true
+                                        alignment = Pos.CENTER_LEFT
+                                    }
+                                }
+                            }
+
+                            vbox {
+                                spacing = 10.toDouble()
+                                paddingTop(10.toDouble())
+                                paddingBottom(10.toDouble())
+                                paddingLeft(10.toDouble())
+                                paddingRight(10.toDouble())
+                                style = "-fx-border-color: darkblue; -fx-border-style: solid"
+                                hbox {
+                                    label("Target") {
+                                        alignment = Pos.CENTER_LEFT
+                                        prefWidth = 100.0
+                                    }
+                                    hbox {
+                                        prefWidth = 170.0
+                                        textfield(model.targetFolder, FileToStringConverter()) {
+                                            disableProperty().value = true
+
+                                            validator { if (it.isNullOrBlank()) error("This field is required") else null }
+                                        }
+                                        button {
+                                            text = "..."
+                                            setOnAction {
+                                                model.targetFolder.value = chooseDirectory("Target Folder")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            vbox {
+                                paddingTop(10.toDouble())
+                                paddingBottom(10.toDouble())
+                                paddingLeft(10.toDouble())
+                                paddingRight(10.toDouble())
+                                hbox {
+                                    spacing = 5.0
+                                    alignment = Pos.CENTER_RIGHT
+                                    cancelAnalysisButton = button {
+                                        prefWidth = 100.0
+                                        isDisable = true
+                                        text = "Cancel"
+                                    }
+                                    startAnalysisButton = button {
+                                        prefWidth = 100.0
+                                        isDisable = false
+                                        text = "Start"
+                                        setOnAction {
+                                            model.commit()
+                                            if (model.isValid) {
+                                                startAnalysis()
+                                                statusLabel.text = "Analysis running ..."
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    hbox {
-                        label("Peptides") {
-                            alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
-                        }
-                        peptidesColumnCombo = combobox<CsvFile.HeaderColumn>(model.peptidesColumn) {
-                            prefWidth = 170.0
-                            validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
-                        }
-                    }
-                    hbox {
-                        label("Accession") {
-                            alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
-                        }
-                        accessionColumnCombo = combobox<CsvFile.HeaderColumn>(model.accessionColumn) {
-                            prefWidth = 170.0
-                            validator { if (it?.name.isNullOrBlank()) error("This field is required") else null }
-                        }
-                    }
-                }
-
-                vbox {
-                    spacing = 10.toDouble()
-                    paddingTop(10.toDouble())
-                    paddingBottom(10.toDouble())
-                    paddingLeft(10.toDouble())
-                    paddingRight(10.toDouble())
-                    style = "-fx-border-color: darkblue; -fx-border-style: solid"
-                    hbox {
-                        label("Reference DB") {
-                            alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
-                        }
+                bottom =
                         hbox {
-                            prefWidth = 170.0
-                            textfield(model.referenceDbFileReference, FileToStringConverter()){
-                                disableProperty().value = true
-
-                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
-                            }
-                            button {
-                                text = "..."
-                                setOnAction {
-                                    model.referenceDbFileReference.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
-
-                                    runAsync {
-                                        controller.loadFastAFile()
-                                    } ui { fastAFile ->
-                                        model.input.fastAFile = fastAFile
-                                        println("Read FastAFile: ${fastAFile.entries.size} entries!")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    hbox {
-                        prefWidth = 170.0
-                        label("Filetype") {
+                            paddingLeft(15.0)
                             alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
+                            label("Status: ")
+                            statusLabel = label("Waiting for input")
                         }
-                        textfield("") {
-                            disableProperty().value = true
-                            alignment = Pos.CENTER_LEFT
-                        }
-                    }
-                }
-
-                vbox {
-                    spacing = 10.toDouble()
-                    paddingTop(10.toDouble())
-                    paddingBottom(10.toDouble())
-                    paddingLeft(10.toDouble())
-                    paddingRight(10.toDouble())
-                    style = "-fx-border-color: darkblue; -fx-border-style: solid"
-                    hbox {
-                        label ("Target") {
-                            alignment = Pos.CENTER_LEFT
-                            prefWidth = 100.0
-                        }
-                        hbox {
-                            prefWidth = 170.0
-                            textfield(model.targetFolder, FileToStringConverter()){
-                                disableProperty().value = true
-
-                                validator { if (it.isNullOrBlank()) error("This field is required") else null }
-                            }
-                            button {
-                                text = "..."
-                                setOnAction {
-                                    model.targetFolder.value = chooseDirectory("Target Folder")
-                                }
-                            }
-                        }
-                    }
-
-                    hbox {
-                        cancelAnalysisButton = button {
-                            isDisable = true
-                            text = "Cancel"
-                        }
-                        startAnalysisButton = button {
-                            isDisable = false
-                            text = "Start"
-                            setOnAction {
-                                model.commit()
-                                if (model.isValid) {
-                                    startAnalysis()
-                                    statusLabel.text = "Analysis running ..."
-                                }
-                            }
-                        }
-                    }
-                    hbox {
-                        label("Status:")
-                        statusLabel = label("Waiting for input")
-                    }
-                }
             }
+
         }
     }
+
 
     fun startAnalysis() {
         startAnalysisButton.setDisable(true)
