@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 /**
  * @author Tobias Behr
  */
-class OrphanedPeptideFinderApp : App(NewOrfView::class) {
+class OrphanPeptideFinderApp : App(NewOrfView::class) {
 
     val guice = Guice.createInjector(NewOrfModule())
 

@@ -13,7 +13,7 @@ import tornadofx.*
 /**
  * @author Tobias Behr
  */
-class NewOrfView : View("--- Orphaned Peptide Finder ---") {
+class NewOrfView : View("--- Orphan Peptide Finder ---") {
     override val root = AnchorPane()
 
     val model: NewOrfModel by inject()
@@ -222,6 +222,8 @@ class NewOrfView : View("--- Orphaned Peptide Finder ---") {
     }
 
     fun setPeptidesHeader(header: List<CsvFile.HeaderColumn>) {
+        peptidesColumnCombo.items.clear()
+        accessionColumnCombo.items.clear()
         peptidesColumnCombo.items.addAll(header)
         accessionColumnCombo.items.addAll(header)
     }
