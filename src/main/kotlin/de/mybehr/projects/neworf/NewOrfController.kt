@@ -29,7 +29,7 @@ class NewOrfController : Controller() {
         runAsync {
             val newPeptides = NewOrfService(model.input).findNewPeptides()
             csvFileHandler.write(
-                    CsvFile(listOf(CsvFile.HeaderColumn("Peptide", 0), CsvFile.HeaderColumn("Accession", 1)), newPeptides),
+                    CsvFile(listOf(CsvFile.HeaderColumn("Orphaned Peptide", 0), CsvFile.HeaderColumn("Accession", 1)), newPeptides),
                     FileFormat.MaxQuandt,
                     model.targetFolder.value,
                     getTargetFileName()
