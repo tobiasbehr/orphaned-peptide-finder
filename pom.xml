@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.mybehr.projects</groupId>
-    <artifactId>orphan-peptide-finder</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>orphaned-peptide-finder</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>orphan-peptide-finder</name>
@@ -114,7 +114,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>de.mybehr.projects.OrphanPeptideFinderApp</mainClass>
+                                    <mainClass>dk.aau.bio.opf.OrphanPeptideFinderApp</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
