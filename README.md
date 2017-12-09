@@ -1,14 +1,25 @@
 # Orphaned Peptide Finder App
 
 ## Purpose
-TODO
+The `Orphaned Peptide Finder (OPF)` enables the comparison between peptide lists (as csv)
+and protein databases (as fasta). This allows the identification and output of peptides 
+which are not present in the protein database, primarily the identification of peptides 
+which were identified in a proteomic approach applying a six-frame translated database 
+of Open Reading Frames (ORFs). These can then be used to improve genomic annotations 
+(proteogenomics). OPF is fast, simple, and reliable as well as protein digestion method 
+independent.  
 
-## Features
-TODO
+## Run the program
 
-## Technical Setup
+To run the program, download and doubleclick the jar-file from the project root.
 
-The project can be built with maven:
+## Build from sources
+
+Requirements
+* JDK 1.8
+* Maven 3.3.9
+
+To build the project with maven:
 
 `mvn clean package`
 
