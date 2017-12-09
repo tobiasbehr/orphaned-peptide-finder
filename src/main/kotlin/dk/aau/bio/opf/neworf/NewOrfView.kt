@@ -66,12 +66,13 @@ class NewOrfView : View("--- Orphan Peptide Finder ---") {
                                             text = "..."
                                             setOnAction {
                                                 model.peptidesFileReference.value = chooseFile("Input File", arrayOf()).singleOrNull()
-
-                                                runAsync {
-                                                    controller.loadPeptidesHeader()
-                                                } ui { csvFile ->
-                                                    model.input.peptidesFile = csvFile
-                                                    setPeptidesHeader(csvFile.header);
+                                                if (model.peptidesFileReference.value != null) {
+                                                    runAsync {
+                                                        controller.loadPeptidesHeader()
+                                                    } ui { csvFile ->
+                                                        model.input.peptidesFile = csvFile
+                                                        setPeptidesHeader(csvFile.header);
+                                                    }
                                                 }
                                             }
                                         }
@@ -122,12 +123,13 @@ class NewOrfView : View("--- Orphan Peptide Finder ---") {
                                             text = "..."
                                             setOnAction {
                                                 model.referenceDbFileReference.value = chooseFile("Reference DB", arrayOf()).singleOrNull()
-
-                                                runAsync {
-                                                    controller.loadFastAFile()
-                                                } ui { fastAFile ->
-                                                    model.input.fastAFile = fastAFile
-                                                    println("Read FastAFile: ${fastAFile.entries.size} entries!")
+                                                if (model.referenceDbFileReference.value != null) {
+                                                    runAsync {
+                                                        controller.loadFastAFile()
+                                                    } ui { fastAFile ->
+                                                        model.input.fastAFile = fastAFile
+                                                        println("Read FastAFile: ${fastAFile.entries.size} entries!")
+                                                    }
                                                 }
                                             }
                                         }
